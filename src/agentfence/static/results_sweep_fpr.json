@@ -1,0 +1,167 @@
+[
+  {
+    "detector_fpr": 0.0,
+    "mode": "B1",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_fpr": 0.0,
+    "mode": "B3",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 0.9583,
+    "false_block_tasks": 1.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_fpr": 0.0,
+    "mode": "B5",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.375
+  },
+  {
+    "detector_fpr": 0.05,
+    "mode": "B1",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 0.9083,
+    "false_block_tasks": 2.2,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_fpr": 0.05,
+    "mode": "B3",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 0.8667,
+    "false_block_tasks": 3.2,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_fpr": 0.05,
+    "mode": "B5",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.458
+  },
+  {
+    "detector_fpr": 0.1,
+    "mode": "B1",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 0.7917,
+    "false_block_tasks": 5.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_fpr": 0.1,
+    "mode": "B3",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 0.7583,
+    "false_block_tasks": 5.8,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_fpr": 0.1,
+    "mode": "B5",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.633
+  },
+  {
+    "detector_fpr": 0.2,
+    "mode": "B1",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 0.6167,
+    "false_block_tasks": 9.2,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_fpr": 0.2,
+    "mode": "B3",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 0.5917,
+    "false_block_tasks": 9.8,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_fpr": 0.2,
+    "mode": "B5",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.908
+  },
+  {
+    "detector_fpr": 0.3,
+    "mode": "B1",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 0.5333,
+    "false_block_tasks": 11.2,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_fpr": 0.3,
+    "mode": "B3",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 0.5167,
+    "false_block_tasks": 11.6,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_fpr": 0.3,
+    "mode": "B5",
+    "n_attack_scenarios": 0,
+    "asr": 0.0,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 1.083
+  }
+]

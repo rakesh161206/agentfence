@@ -1,0 +1,200 @@
+[
+  {
+    "detector_recall": 0.0,
+    "mode": "B1",
+    "n_attack_scenarios": 31,
+    "asr": 1.0,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 0.0,
+    "mode": "B3",
+    "n_attack_scenarios": 31,
+    "asr": 0.4516,
+    "n_benign_scenarios": 24,
+    "tcr": 0.9583,
+    "false_block_tasks": 1.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 0.0,
+    "mode": "B5",
+    "n_attack_scenarios": 31,
+    "asr": 0.0323,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.161,
+    "approvals_benign": 0.375
+  },
+  {
+    "detector_recall": 0.2,
+    "mode": "B1",
+    "n_attack_scenarios": 31,
+    "asr": 0.9355,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 0.2,
+    "mode": "B3",
+    "n_attack_scenarios": 31,
+    "asr": 0.4516,
+    "n_benign_scenarios": 24,
+    "tcr": 0.9583,
+    "false_block_tasks": 1.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 0.2,
+    "mode": "B5",
+    "n_attack_scenarios": 31,
+    "asr": 0.0323,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.226,
+    "approvals_benign": 0.375
+  },
+  {
+    "detector_recall": 0.4,
+    "mode": "B1",
+    "n_attack_scenarios": 31,
+    "asr": 0.8903,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 0.4,
+    "mode": "B3",
+    "n_attack_scenarios": 31,
+    "asr": 0.4516,
+    "n_benign_scenarios": 24,
+    "tcr": 0.9583,
+    "false_block_tasks": 1.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 0.4,
+    "mode": "B5",
+    "n_attack_scenarios": 31,
+    "asr": 0.0323,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.271,
+    "approvals_benign": 0.375
+  },
+  {
+    "detector_recall": 0.6,
+    "mode": "B1",
+    "n_attack_scenarios": 31,
+    "asr": 0.8645,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 0.6,
+    "mode": "B3",
+    "n_attack_scenarios": 31,
+    "asr": 0.4516,
+    "n_benign_scenarios": 24,
+    "tcr": 0.9583,
+    "false_block_tasks": 1.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 0.6,
+    "mode": "B5",
+    "n_attack_scenarios": 31,
+    "asr": 0.0323,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.297,
+    "approvals_benign": 0.375
+  },
+  {
+    "detector_recall": 0.8,
+    "mode": "B1",
+    "n_attack_scenarios": 31,
+    "asr": 0.8387,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 0.8,
+    "mode": "B3",
+    "n_attack_scenarios": 31,
+    "asr": 0.4516,
+    "n_benign_scenarios": 24,
+    "tcr": 0.9583,
+    "false_block_tasks": 1.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 0.8,
+    "mode": "B5",
+    "n_attack_scenarios": 31,
+    "asr": 0.0323,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.323,
+    "approvals_benign": 0.375
+  },
+  {
+    "detector_recall": 1.0,
+    "mode": "B1",
+    "n_attack_scenarios": 31,
+    "asr": 0.8065,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 1.0,
+    "mode": "B3",
+    "n_attack_scenarios": 31,
+    "asr": 0.4516,
+    "n_benign_scenarios": 24,
+    "tcr": 0.9583,
+    "false_block_tasks": 1.0,
+    "approvals_attack": 0.0,
+    "approvals_benign": 0.0
+  },
+  {
+    "detector_recall": 1.0,
+    "mode": "B5",
+    "n_attack_scenarios": 31,
+    "asr": 0.0323,
+    "n_benign_scenarios": 24,
+    "tcr": 1.0,
+    "false_block_tasks": 0.0,
+    "approvals_attack": 0.355,
+    "approvals_benign": 0.375
+  }
+]
