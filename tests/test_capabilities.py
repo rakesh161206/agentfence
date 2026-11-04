@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import time
 
-from agentfence.capabilities import CapabilityError
-from agentfence.models import Capability
+from backend.core.models import Capability
+from backend.security.capabilities import CapabilityError
 
 
 def test_token_round_trip(service) -> None:

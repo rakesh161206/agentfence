@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import base64
 
-from agentfence.fixtures import CANARY
-from agentfence.models import Capability, Decision, ToolAction
-from agentfence.service import AgentFenceService
-
 from conftest import basic_capabilities, make_service
+
+from backend.core.models import Capability, Decision, ToolAction
+from backend.fixtures import CANARY
+from backend.runtime.interceptor import AgentFenceService
 
 
 def create_basic(service: AgentFenceService, **overrides):

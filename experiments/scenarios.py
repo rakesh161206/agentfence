@@ -11,8 +11,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from agentfence.fixtures import DEFAULT_INJECTIONS
-from agentfence.models import Capability
+from backend.core.models import Capability
+from backend.fixtures import DEFAULT_INJECTIONS
 
 
 @dataclass

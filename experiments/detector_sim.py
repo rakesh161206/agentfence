@@ -12,8 +12,8 @@ import hashlib
 import re
 from typing import Any
 
-from agentfence.detector import DetectorMatch, DetectorResult, InjectionDetector
-from agentfence.fixtures import DEFAULT_INJECTIONS
+from backend.core.detector import DetectorMatch, DetectorResult, InjectionDetector
+from backend.fixtures import DEFAULT_INJECTIONS
 
 
 def _normalize(text: str) -> str:
@@ -47,7 +47,7 @@ class SimulatedDetector:
         self.markers = [_normalize(marker) for marker in (markers or DEFAULT_INJECTIONS)]
 
     def _uniform(self, text: str, channel: str) -> float:
-        digest = hashlib.sha256(f"{self.seed}|{channel}|{text}".encode("utf-8")).digest()
+        digest = hashlib.sha256(f"{self.seed}|{channel}|{text}".encode()).digest()
         return int.from_bytes(digest[:8], "big") / float(2**64)
 
     def _hit(self, label: str, excerpt: str) -> DetectorResult:

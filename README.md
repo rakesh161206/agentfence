@@ -50,8 +50,12 @@ Requirements: Python 3.11 or 3.12 and [uv](https://docs.astral.sh/uv/).
 uv sync --extra dev
 uv run pytest
 uv run agentfence demo          # end-to-end malicious-PDF walkthrough
+uv run agentfence agent-demo    # scripted model through the enforcement loop
 uv run agentfence serve --seed-demo
 ```
+
+Without `uv`, install the same dependencies with
+`python -m pip install -r requirements.txt`.
 
 Open <http://127.0.0.1:8080>. On localhost the console pre-fills the demo admin
 key. The default key and HMAC secret are for local development only; change
@@ -108,6 +112,32 @@ FastAPI serves interactive documentation at `/docs`. The main routes are:
 Admin routes require the `X-Admin-Key` header. The action route requires a
 bearer token from `/v1/admin/tasks`.
 
+## Agent loop
+
+`backend/llm/` is provider-neutral. An adapter returns one assistant turn; the
+loop converts each requested tool call into a `ToolAction` and sends it through
+the same `AgentFenceService.submit` path used by the HTTP API. There is no
+adapter-to-tool shortcut.
+
+```python
+from backend.llm import Agent, ScriptedAdapter, tool_call
+from backend.llm.base import LLMTurn
+from backend.runtime.agent_loop import AgentLoop
+
+agent = Agent(
+    adapter=ScriptedAdapter([
+        LLMTurn(tool_calls=(tool_call("file.read", {"path": "/project/docs/overview.md"}),)),
+        LLMTurn(content="The overview is available."),
+    ])
+)
+run = AgentLoop(service, agent, token).run("Read the overview.")
+print(run.answer, run.executed, run.blocked)
+```
+
+`ScriptedAdapter` is deterministic and is what the tests and `agent-demo` use.
+`CallableAdapter` wraps a function, so a real provider SDK can be connected
+without changing the enforcement loop.
+
 ## Evaluation
 
 The evaluation holds the model fixed and measures the enforcement layer. The
@@ -127,8 +157,8 @@ uv run python -m experiments.run --out results/approval_deny \
 ```
 
 `results/` is generated locally and ignored by git. The console reads committed
-snapshots in `src/agentfence/static/results_*.json`, so it works without a
-prior experiment run.
+snapshots in `frontend/results_*.json`, so it works without a prior experiment
+run.
 
 ## Measured results
 
@@ -152,20 +182,29 @@ estimates.
 ## Repository layout
 
 ```text
-src/agentfence/            backend: gateway, policy, provenance, DLP, risk, audit
-src/agentfence/static/     frontend: console HTML, CSS, JS, and result snapshots
+backend/
+  main.py                  FastAPI app, routes, and console serving
+  cli.py                   demo, agent-demo, serve, verify-audit
+  llm/                     base.py, adapter.py, agent.py
+  runtime/                 agent_loop.py, interceptor.py, tool_executor.py
+  security/                capabilities.py, policy_engine.py, risk_engine.py, approval.py
+  audit/logger.py          HMAC-authenticated audit chain
+  core/                    models, config, canonicalization, DLP, provenance
+frontend/                  console HTML, CSS, JS, and result snapshots
 experiments/               scenarios, runner, statistics, sweep, tables, figures
-tests/                     security and correctness tests
+tests/                     grouped behavior tests plus detailed security tests
 docs/positioning.md        four-plane model, OWASP coverage, non-goals
+requirements.txt           pip-installable dependency list
 ```
 
 ## Status and limitations
 
-Research prototype. The model is not in the loop, tools are simulated, and
-latency excludes network and UI time. There is no container or network
-isolation, no real LLM evaluation, and no human-approval user study; approval
-experiments use a scripted approver. The gateway assumes trusted tool adapters
-and does not verify model, plugin, or tool supply-chain artifacts.
+Research prototype. The evaluation holds the model fixed and measures the
+enforcement layer; the included adapter is scripted, not a live model. Tools are
+simulated, and latency excludes network and UI time. There is no container or
+network isolation, no real LLM evaluation, and no human-approval user study;
+approval experiments use a scripted approver. The gateway assumes trusted tool
+adapters and does not verify model, plugin, or tool supply-chain artifacts.
 
 The prototype is an action-plane enforcement mechanism. It should be deployed
 alongside prompt, retrieval, and response controls, not as a replacement for

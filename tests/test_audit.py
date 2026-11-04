@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from agentfence.models import Capability, ToolAction
+from backend.core.models import Capability, ToolAction
 
 
 def test_audit_chain_detects_tampering(service) -> None:

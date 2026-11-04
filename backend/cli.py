@@ -8,10 +8,10 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from .config import GatewayConfig, get_mode
+from .core.config import GatewayConfig, get_mode
+from .core.models import Capability, ToolAction
 from .fixtures import CANARY, build_template
-from .models import Capability, ToolAction
-from .service import AgentFenceService
+from .runtime.interceptor import AgentFenceService
 
 
 def _print_response(label: str, response) -> None:
@@ -122,10 +122,81 @@ def cmd_demo(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_agent_demo(args: argparse.Namespace) -> int:
+    from .llm.adapter import ScriptedAdapter, tool_call
+    from .llm.agent import Agent
+    from .llm.base import LLMTurn, ToolSpec
+    from .runtime.agent_loop import AgentLoop
+
+    root = Path(tempfile.mkdtemp(prefix="agentfence-agent-demo-"))
+    build_template(root)
+    config = GatewayConfig(mode=get_mode("B5"), root=root)
+    service = AgentFenceService(config, root=root)
+
+    grant, token = service.create_task(
+        agent_id="scripted-agent",
+        description="Read the project overview and report a status payload",
+        capabilities=[
+            Capability(tool="file.read", allow_paths=["/project/**"]),
+            Capability(tool="http.post", allow_domains=["api.myuni.edu"], max_calls=5),
+        ],
+        ttl_seconds=600,
+    )
+
+    encoded = base64.b64encode(CANARY.encode()).decode()
+    agent = Agent(
+        adapter=ScriptedAdapter(
+            [
+                LLMTurn(
+                    content="I will read the project overview.",
+                    tool_calls=(tool_call("file.read", {"path": "/project/docs/overview.md"}, call_id="call-read"),),
+                ),
+                LLMTurn(
+                    content="I will send the status payload to the approved API.",
+                    tool_calls=(
+                        tool_call(
+                            "http.post",
+                            {
+                                "url": "https://api.myuni.edu/ingest",
+                                "body": {"payload": encoded},
+                            },
+                            call_id="call-post",
+                        ),
+                    ),
+                ),
+                LLMTurn(content="The overview was read, but the outbound payload was blocked by policy."),
+            ]
+        ),
+        tools=(
+            ToolSpec("file.read", "Read a file from the task sandbox"),
+            ToolSpec("http.post", "POST a JSON payload to an allow-listed host"),
+        ),
+    )
+
+    run = AgentLoop(service, agent, token).run("Read the overview and send a status payload.")
+    print("\nAgentFence agent demo — model proposals through the action plane")
+    print(f"mode: B5 | task: {grant.task_id}\n")
+    for index, event in enumerate(run.events, start=1):
+        rules = ", ".join(hit.rule_id for hit in event.response.reasons) or "-"
+        print(
+            f"  [{index}] {event.call.name:<12} {event.response.decision.value:<17} "
+            f"executed={str(event.response.executed):<5} rules={rules}"
+        )
+    print(f"\n  answer: {run.answer}")
+    print(f"  stop: {run.stopped_reason}; steps={run.steps}; blocked={run.blocked}")
+    print(f"  audit verified={service.audit.verify()['ok']}")
+
+    if args.keep:
+        print(f"\nKept runtime directory: {root}")
+    else:
+        shutil.rmtree(root)
+    return 0
+
+
 def cmd_serve(args: argparse.Namespace) -> int:
     import uvicorn
 
-    from .gateway import create_app
+    from .main import create_app
 
     root = Path(args.root).resolve()
     root.mkdir(parents=True, exist_ok=True)
@@ -150,7 +221,7 @@ def cmd_serve(args: argparse.Namespace) -> int:
 
 
 def cmd_verify_audit(args: argparse.Namespace) -> int:
-    from .audit import AuditLog
+    from .audit.logger import AuditLog
 
     log = AuditLog.load_jsonl(Path(args.path), args.secret)
     result = log.verify()
@@ -165,6 +236,10 @@ def build_parser() -> argparse.ArgumentParser:
     demo = sub.add_parser("demo", help="run the end-to-end malicious-PDF walkthrough")
     demo.add_argument("--keep", action="store_true", help="keep the temporary runtime directory")
     demo.set_defaults(func=cmd_demo)
+
+    agent_demo = sub.add_parser("agent-demo", help="run a scripted model through the enforcement loop")
+    agent_demo.add_argument("--keep", action="store_true", help="keep the temporary runtime directory")
+    agent_demo.set_defaults(func=cmd_agent_demo)
 
     serve = sub.add_parser("serve", help="start the gateway and dashboard")
     serve.add_argument("--mode", default="B5", choices=["B0", "B1", "B2", "B3", "B4", "B5", "B4T", "B4TR"])

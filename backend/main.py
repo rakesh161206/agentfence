@@ -10,15 +10,15 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from .approvals import ApprovalError
-from .config import GatewayConfig, get_mode
+from .core.config import GatewayConfig, get_mode
+from .core.models import ActionResponse, ApprovalToken, Capability, PendingApproval, TaskResponse, ToolAction
 from .demo import list_scenarios, run_scenario, seed_live
 from .fixtures import build_template
-from .models import ActionResponse, ApprovalToken, Capability, PendingApproval, TaskResponse, ToolAction
 from .results import load_results
-from .service import AgentFenceService
+from .runtime.interceptor import AgentFenceService
+from .security.approval import ApprovalError
 
-STATIC_DIR = Path(__file__).parent / "static"
+STATIC_DIR = Path(__file__).resolve().parents[1] / "frontend"
 
 
 class CreateTaskRequest(BaseModel):

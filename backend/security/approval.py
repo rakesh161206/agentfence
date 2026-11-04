@@ -6,10 +6,10 @@ import base64
 import json
 import secrets
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta
 
-from .canonical import canonical_json, constant_time_equal, hmac_sha256_hex
-from .models import ApprovalToken, PendingApproval, Preview, utcnow
+from ..core.canonical import canonical_json, constant_time_equal, hmac_sha256_hex
+from ..core.models import ApprovalToken, PendingApproval, Preview, utcnow
 
 
 class ApprovalError(Exception):

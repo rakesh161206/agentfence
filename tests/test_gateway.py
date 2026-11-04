@@ -3,8 +3,8 @@ from __future__ import annotations
 import httpx
 import pytest
 
-from agentfence.config import GatewayConfig, get_mode
-from agentfence.gateway import create_app
+from backend.core.config import GatewayConfig, get_mode
+from backend.main import create_app
 
 
 @pytest.mark.asyncio

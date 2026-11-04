@@ -9,11 +9,11 @@ set of rule hits with a fixed precedence.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
-from .config import ModeConfig
-from .destinations import DestInfo, path_allowed, sql_tables
-from .models import (
+from ..core.config import ModeConfig
+from ..core.destinations import DestInfo, path_allowed, sql_tables
+from ..core.models import (
     EGRESS_TOOLS,
     HIGH_RISK_TOOLS,
     Capability,
@@ -25,7 +25,7 @@ from .models import (
     TaskGrant,
     Trust,
 )
-from .risk import CallTracker
+from .risk_engine import CallTracker
 
 
 @dataclass
@@ -94,7 +94,7 @@ def evaluate(ctx: PolicyContext) -> PolicyResult:
         if cap is None:
             hits.append(_hit("R1", Decision.BLOCK, "tool is not in the task's capability grant"))
         elif ctx.mode.expiry and ctx.task is not None:
-            if ctx.task.expires_at <= datetime.now(timezone.utc):
+            if ctx.task.expires_at <= datetime.now(UTC):
                 hits.append(_hit("R1", Decision.BLOCK, "capability grant expired"))
 
     if ctx.mode.path_scope and ctx.tool in {"file.read", "file.write"}:

@@ -8,10 +8,10 @@ prefixes, and the latency fields used in the paper.
 
 from __future__ import annotations
 
-from agentfence.models import Capability, Decision, ToolAction
-from agentfence.service import AgentFenceService
-
 from conftest import make_service
+
+from backend.core.models import Capability, Decision, ToolAction
+from backend.runtime.interceptor import AgentFenceService
 from experiments.agent import MissingRef, ScriptedAgent, resolve_value
 from experiments.scenarios import attack_scenarios, benign_scenarios
 

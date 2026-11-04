@@ -24,10 +24,10 @@ from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
 
-from agentfence.config import ABLATION_MODES, BASELINE_MODES, GatewayConfig, get_mode
-from agentfence.fixtures import build_template
-from agentfence.models import ToolAction
-from agentfence.service import AgentFenceService
+from backend.core.config import ABLATION_MODES, BASELINE_MODES, GatewayConfig, get_mode
+from backend.core.models import ToolAction
+from backend.fixtures import build_template
+from backend.runtime.interceptor import AgentFenceService
 
 from .agent import ScriptedAgent
 from .scenarios import Scenario, attack_scenarios, benign_scenarios
@@ -255,7 +255,7 @@ def run_experiment(
     }
     _write_json(out / "manifest.json", manifest)
 
-    from . import stats, plots, tables
+    from . import plots, stats, tables
 
     summary = stats.summarize(records, out)
     tables.write_tables(summary, out / "tables")

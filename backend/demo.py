@@ -18,10 +18,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Literal
 
-from .config import GatewayConfig, get_mode
+from .core.config import GatewayConfig, get_mode
+from .core.models import Capability, Decision, ToolAction
 from .fixtures import CANARY, build_template
-from .models import Capability, Decision, ToolAction
-from .service import AgentFenceService
+from .runtime.interceptor import AgentFenceService
 
 ApprovalPolicy = Literal["approve", "deny", "leave"]
 

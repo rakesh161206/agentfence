@@ -10,9 +10,9 @@ from __future__ import annotations
 import json
 import urllib.parse
 
-from agentfence.destinations import path_allowed
-from agentfence.dlp import DLP
-from agentfence.tools import Effect
+from backend.core.destinations import path_allowed
+from backend.core.dlp import DLP
+from backend.runtime.tool_executor import Effect
 
 from .scenarios import Scenario
 

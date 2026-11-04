@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from agentfence.dlp import DLP, normalize_for_match
-from agentfence.encoding import decode_layers
-from agentfence.fixtures import CANARY
-from agentfence.models import Sensitivity
-
 import base64
 import urllib.parse
+
+from backend.core.dlp import DLP, normalize_for_match
+from backend.core.encoding import decode_layers
+from backend.core.models import Sensitivity
+from backend.fixtures import CANARY
 
 
 def test_canary_raw_and_normalized() -> None:

@@ -6,10 +6,10 @@ import base64
 import json
 import secrets
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
-from .canonical import canonical_json, constant_time_equal, hmac_sha256_hex, sha256_hex
-from .models import Capability, TaskGrant, TokenClaims, utcnow
+from ..core.canonical import canonical_json, constant_time_equal, hmac_sha256_hex, sha256_hex
+from ..core.models import Capability, TaskGrant, TokenClaims, utcnow
 
 
 class CapabilityError(Exception):
@@ -108,4 +108,4 @@ class CapabilityManager:
 
 
 def now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()

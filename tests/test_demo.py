@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pytest
 
-from agentfence.demo import get_scenario, list_scenarios, run_scenario, seed_live
-from agentfence.service import AgentFenceService
+from backend.demo import get_scenario, list_scenarios, run_scenario, seed_live
+from backend.runtime.interceptor import AgentFenceService
 
 
 def test_scenario_catalogue_is_presentation_ready() -> None:

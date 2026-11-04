@@ -8,10 +8,10 @@ import urllib.parse
 from dataclasses import dataclass, field
 from typing import Any
 
-from agentfence.dlp import DLP
-from agentfence.fixtures import CANARY
-from agentfence.models import Decision
-from agentfence.service import AgentFenceService
+from backend.core.dlp import DLP
+from backend.core.models import Decision
+from backend.fixtures import CANARY
+from backend.runtime.interceptor import AgentFenceService
 
 from .scenarios import ActionSpec, Scenario
 
@@ -301,7 +301,7 @@ class ScriptedAgent:
 
     # ----------------------------------------------------------------- helpers
     def _submit(self, action: ActionSpec, args: dict[str, Any], approval_token: str | None = None):
-        from agentfence.models import ToolAction
+        from backend.core.models import ToolAction
 
         response = self.service.submit(
             token=self.token,

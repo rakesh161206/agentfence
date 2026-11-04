@@ -9,11 +9,11 @@ genuinely sampled, and we report bootstrap intervals for its percentiles.
 from __future__ import annotations
 
 import json
-import math
 import re
 from collections import defaultdict
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 import numpy as np
 

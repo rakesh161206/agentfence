@@ -5,10 +5,10 @@ from pathlib import Path
 
 import pytest
 
-from agentfence.config import GatewayConfig, get_mode
-from agentfence.fixtures import build_template
-from agentfence.models import Capability
-from agentfence.service import AgentFenceService
+from backend.core.config import GatewayConfig, get_mode
+from backend.core.models import Capability
+from backend.fixtures import build_template
+from backend.runtime.interceptor import AgentFenceService
 
 
 @pytest.fixture(scope="session")

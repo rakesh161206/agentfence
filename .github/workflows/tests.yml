@@ -13,4 +13,5 @@ jobs:
         with:
           python-version: "3.11"
       - run: uv sync --extra dev
+      - run: uv run ruff check backend tests experiments
       - run: uv run pytest

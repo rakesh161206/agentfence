@@ -8,11 +8,11 @@ That monotonicity is enforced by the policy engine, not by this module.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
-from .detector import InjectionDetector
-from .dlp import DLP
-from .models import DataLabel, RiskBreakdown, RiskFactor, Sensitivity
+from ..core.detector import InjectionDetector
+from ..core.dlp import DLP
+from ..core.models import DataLabel, RiskBreakdown, RiskFactor, Sensitivity
 
 
 @dataclass
@@ -39,16 +39,16 @@ class CallTracker:
         return pruned
 
     def record(self, task_id: str, action_hash: str, now: float | None = None) -> None:
-        timestamp = now or datetime.now(timezone.utc).timestamp()
+        timestamp = now or datetime.now(UTC).timestamp()
         self.events.setdefault(task_id, []).append((timestamp, action_hash))
         self.total[task_id] = self.total.get(task_id, 0) + 1
 
     def recent_count(self, task_id: str, now: float | None = None) -> int:
-        timestamp = now or datetime.now(timezone.utc).timestamp()
+        timestamp = now or datetime.now(UTC).timestamp()
         return len(self._prune(task_id, timestamp))
 
     def repeat_count(self, task_id: str, action_hash: str, now: float | None = None) -> int:
-        timestamp = now or datetime.now(timezone.utc).timestamp()
+        timestamp = now or datetime.now(UTC).timestamp()
         return sum(1 for _, item_hash in self._prune(task_id, timestamp) if item_hash == action_hash)
 
     def total_count(self, task_id: str) -> int:

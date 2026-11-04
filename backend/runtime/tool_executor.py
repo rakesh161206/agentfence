@@ -11,15 +11,14 @@ import json
 import re
 import secrets
 import sqlite3
-import time
 import urllib.parse
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from .canonical import sha256_hex
-from .paths import PathViolation, resolve
+from ..core.canonical import sha256_hex
+from ..core.paths import resolve
 
 READ_LIMIT = 120_000
 
@@ -260,7 +259,7 @@ class ToolRuntime:
             content_hash=sha256_hex(full_content if full_content is not None else result.content),
             bytes_out=result.bytes_out if context.get("tool") in {"http.post", "email.send", "file.write"} else 0,
             metadata=result.metadata,
-            timestamp=datetime.now(timezone.utc),
+            timestamp=datetime.now(UTC),
             delivered=delivered,
         )
         result.effect_id = effect.effect_id

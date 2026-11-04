@@ -1,7 +1,7 @@
 """Read the evaluation artifacts for the dashboard.
 
 The repository keeps experiment output under ``results/``.  A packaged install
-does not ship that directory, so a compact snapshot is also kept in ``static/``
+does not ship that directory, so a compact snapshot is also kept in ``frontend/``
 and used as a fallback.
 """
 
@@ -12,8 +12,8 @@ from pathlib import Path
 from typing import Any
 
 PACKAGE_DIR = Path(__file__).resolve().parent
-REPO_DIR = PACKAGE_DIR.parents[1]
-STATIC_DIR = PACKAGE_DIR / "static"
+REPO_DIR = PACKAGE_DIR.parent
+STATIC_DIR = REPO_DIR / "frontend"
 
 
 def _read_json(path: Path) -> Any:

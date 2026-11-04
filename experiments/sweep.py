@@ -19,7 +19,6 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-import shutil
 import tempfile
 import time
 from collections import defaultdict
@@ -30,10 +29,8 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import numpy as np
 
-from agentfence.fixtures import build_template
-from agentfence.models import ToolAction
+from backend.fixtures import build_template
 
 from .detector_sim import detector_factory
 from .run import iter_episodes
@@ -123,7 +120,6 @@ def _write_csv(rows: list[dict[str, Any]], path: Path) -> None:
 
 
 def _plot_recall(rows: list[dict[str, Any]], out: Path) -> list[str]:
-    recalls = sorted({row["detector_recall"] for row in rows})
     fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.35), sharex=True)
     for mode in RECALL_MODES:
         subset = [row for row in rows if row["mode"] == mode]

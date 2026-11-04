@@ -2,23 +2,23 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
-from enum import Enum
+from datetime import UTC, datetime
+from enum import StrEnum
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field, field_validator
 
 
 def utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
-class Trust(str, Enum):
+class Trust(StrEnum):
     TRUSTED = "trusted"
     UNTRUSTED = "untrusted"
 
 
-class Sensitivity(str, Enum):
+class Sensitivity(StrEnum):
     PUBLIC = "public"
     INTERNAL = "internal"
     CONFIDENTIAL = "confidential"
@@ -28,7 +28,7 @@ class Sensitivity(str, Enum):
         return {self.PUBLIC: 0, self.INTERNAL: 1, self.CONFIDENTIAL: 2}[self]
 
 
-class Decision(str, Enum):
+class Decision(StrEnum):
     ALLOW = "ALLOW"
     BLOCK = "BLOCK"
     REQUIRE_APPROVAL = "REQUIRE_APPROVAL"
@@ -97,7 +97,7 @@ class DataLabel(BaseModel):
     bytes: int = 0
     media_type: str = "text/plain"
 
-    def merged(self, other: "DataLabel") -> "DataLabel":
+    def merged(self, other: DataLabel) -> DataLabel:
         sensitivity = (
             self.sensitivity if self.sensitivity.rank >= other.sensitivity.rank else other.sensitivity
         )

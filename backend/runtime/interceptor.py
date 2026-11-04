@@ -8,12 +8,10 @@ from datetime import timedelta
 from pathlib import Path
 from typing import Any
 
-from .approvals import ApprovalError, ApprovalStore
-from .audit import AuditLog
-from .canonical import canonical_json, sha256_hex
-from .capabilities import CapabilityError, CapabilityManager
-from .config import GatewayConfig, ModeConfig
-from .destinations import (
+from ..audit.logger import AuditLog
+from ..core.canonical import canonical_json, sha256_hex
+from ..core.config import GatewayConfig
+from ..core.destinations import (
     KNOWN_GOOD_DOMAINS,
     DestInfo,
     email_destination,
@@ -21,10 +19,10 @@ from .destinations import (
     path_destination,
     sql_tables,
 )
-from .detector import InjectionDetector
-from .dlp import DLP
-from .encoding import flatten_text
-from .models import (
+from ..core.detector import InjectionDetector
+from ..core.dlp import DLP
+from ..core.encoding import flatten_text
+from ..core.models import (
     ActionResponse,
     Capability,
     DataLabel,
@@ -39,11 +37,13 @@ from .models import (
     Trust,
     utcnow,
 )
-from .paths import PathViolation
-from .policy import PolicyContext, evaluate
-from .provenance import ProvenanceStore, source_policy
-from .risk import CallTracker, RiskEngine
-from .tools import Effect, ToolRuntime, ToolResult
+from ..core.paths import PathViolation
+from ..core.provenance import ProvenanceStore, source_policy
+from ..security.approval import ApprovalError, ApprovalStore
+from ..security.capabilities import CapabilityError, CapabilityManager
+from ..security.policy_engine import PolicyContext, evaluate
+from ..security.risk_engine import CallTracker, RiskEngine
+from .tool_executor import Effect, ToolResult, ToolRuntime
 
 MAX_ATTACHMENT_BYTES = 2_000_000
 
@@ -338,8 +338,6 @@ class AgentFenceService:
         if action.tool in {"http.post", "email.send"}:
             payload = prepared.get("content", "") if action.tool == "http.post" else prepared.get("text", "")
             self._remember_egress(task.task_id, payload)
-
-        execution_error = tool_result.metadata.get("error") if tool_result else None
 
         self.audit.append(
             event="ACTION",
@@ -830,7 +828,7 @@ class AgentFenceService:
 
     @staticmethod
     def _empty_risk():
-        from .models import RiskBreakdown
+        from ..core.models import RiskBreakdown
 
         return RiskBreakdown()
 
