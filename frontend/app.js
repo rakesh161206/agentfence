@@ -330,8 +330,8 @@ function renderOverviewChart() {
   });
   $("#overviewChart").innerHTML = `
     <div class="chart-legend">
-      <span><i style="background:#fb7185"></i>Attack success (ASR)</span>
-      <span><i style="background:#34d399"></i>Task completion (TCR)</span>
+      <span><i style="background:#A32A2A"></i>Attack success (ASR)</span>
+      <span><i style="background:#2E6B40"></i>Task completion (TCR)</span>
     </div>
     ${groupedBarChart(rows)}`;
 }
@@ -348,19 +348,19 @@ function groupedBarChart(rows) {
   parts.push(`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Attack success and task completion by configuration">`);
   for (let index = 0; index <= 4; index += 1) {
     const x = left + (plotWidth * index) / 4;
-    parts.push(`<line x1="${x}" y1="${top - 8}" x2="${x}" y2="${height - 8}" stroke="rgba(148,163,184,.12)" stroke-width="1"/>`);
-    parts.push(`<text x="${x}" y="12" text-anchor="middle" fill="#64748b" font-family="ui-monospace, monospace" font-size="9">${index * 25}%</text>`);
+    parts.push(`<line x1="${x}" y1="${top - 8}" x2="${x}" y2="${height - 8}" stroke="rgba(35,29,21,.12)" stroke-width="1"/>`);
+    parts.push(`<text x="${x}" y="12" text-anchor="middle" fill="#756B5C" font-family="ui-monospace, monospace" font-size="9">${index * 25}%</text>`);
   }
   rows.forEach((row, index) => {
     const y = top + index * rowHeight;
     if (row.highlight) {
-      parts.push(`<rect x="0" y="${y - 2}" width="${width}" height="${rowHeight - 2}" rx="6" fill="rgba(52,211,153,.045)"/>`);
+      parts.push(`<rect x="0" y="${y - 2}" width="${width}" height="${rowHeight - 2}" rx="6" fill="rgba(46,107,64,.06)"/>`);
     }
-    parts.push(`<text x="0" y="${y + 15}" fill="${row.highlight ? "#e8eefc" : "#94a3b8"}" font-family="ui-monospace, monospace" font-size="10">${row.mode}</text>`);
-    parts.push(`<rect x="${left}" y="${y + 3}" width="${Math.max(2, plotWidth * row.asr)}" height="10" rx="4" fill="#fb7185" opacity="${row.highlight ? 1 : 0.5}"/>`);
-    parts.push(`<rect x="${left}" y="${y + 19}" width="${Math.max(2, plotWidth * row.tcr)}" height="10" rx="4" fill="#34d399" opacity="${row.highlight ? 1 : 0.42}"/>`);
-    parts.push(`<text x="${left + plotWidth + 8}" y="${y + 12}" fill="#cbd5e1" font-family="ui-monospace, monospace" font-size="9">${pct(row.asr, 1)}</text>`);
-    parts.push(`<text x="${left + plotWidth + 8}" y="${y + 28}" fill="#cbd5e1" font-family="ui-monospace, monospace" font-size="9">${pct(row.tcr, 1)}</text>`);
+    parts.push(`<text x="0" y="${y + 15}" fill="${row.highlight ? "#1B1813" : "#6C6355"}" font-family="ui-monospace, monospace" font-size="10">${row.mode}</text>`);
+    parts.push(`<rect x="${left}" y="${y + 3}" width="${Math.max(2, plotWidth * row.asr)}" height="10" rx="4" fill="#A32A2A" opacity="${row.highlight ? 1 : 0.5}"/>`);
+    parts.push(`<rect x="${left}" y="${y + 19}" width="${Math.max(2, plotWidth * row.tcr)}" height="10" rx="4" fill="#2E6B40" opacity="${row.highlight ? 1 : 0.42}"/>`);
+    parts.push(`<text x="${left + plotWidth + 8}" y="${y + 12}" fill="#3E362B" font-family="ui-monospace, monospace" font-size="9">${pct(row.asr, 1)}</text>`);
+    parts.push(`<text x="${left + plotWidth + 8}" y="${y + 28}" fill="#3E362B" font-family="ui-monospace, monospace" font-size="9">${pct(row.tcr, 1)}</text>`);
   });
   parts.push("</svg>");
   return parts.join("");
@@ -666,9 +666,9 @@ function renderComparison(comparison) {
 }
 
 function verdictColor(verdict) {
-  if (verdict === "blocked" || verdict === "completed") return "#34d399";
-  if (verdict === "pending" || verdict === "false_block") return "#fbbf24";
-  return "#fb7185";
+  if (verdict === "blocked" || verdict === "completed") return "#2E6B40";
+  if (verdict === "pending" || verdict === "false_block") return "#8A5A00";
+  return "#A32A2A";
 }
 
 function approvalChip(result) {
@@ -864,7 +864,7 @@ function renderApprovalDetail() {
       ${attachments ? `<h3>Attachments</h3>${attachments}` : ""}
       <div class="actions">
         <button class="btn primary" id="approveBtn">Approve exact action</button>
-        <button class="btn ghost" id="denyBtn" style="border-color:rgba(251,113,133,.35);color:#fecdd3">Deny</button>
+        <button class="btn ghost" id="denyBtn" style="border-color:rgba(163,42,42,.35);color:#A32A2A">Deny</button>
       </div>
       <div id="approvalNotice"></div>
     </div>`;
@@ -1056,8 +1056,8 @@ function renderModeTable(main) {
     return `
       <div class="mode-row ${best ? "best" : ""}">
         <div class="mode-name">${esc(mode)}<span class="tag">${esc(tag)}</span></div>
-        ${barCell(data.attack.asr, "#fb7185")}
-        ${barCell(data.benign.tcr, "#34d399")}
+        ${barCell(data.attack.asr, "#A32A2A")}
+        ${barCell(data.benign.tcr, "#2E6B40")}
         <div class="num">${num(data.benign.false_block_tasks)}</div>
         <div class="num">${Number(data.latency.end_to_end.p95 || 0).toFixed(2)}</div>
       </div>`;
@@ -1088,18 +1088,18 @@ function renderSweepChart(sweep) {
   const bottom = 32;
   const plotW = width - left - right;
   const plotH = height - top - bottom;
-  const colors = { B1: "#fbbf24", B3: "#fb7185", B5: "#34d399" };
+  const colors = { B1: "#8A5A00", B3: "#A32A2A", B5: "#2E6B40" };
   const x = (value) => left + plotW * value;
   const y = (value) => top + plotH * (1 - value);
   const parts = [`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Attack success as detector recall varies">`];
   for (let index = 0; index <= 4; index += 1) {
     const gy = top + (plotH * index) / 4;
-    parts.push(`<line x1="${left}" y1="${gy}" x2="${width - right}" y2="${gy}" stroke="rgba(148,163,184,.12)"/>`);
-    parts.push(`<text x="${left - 8}" y="${gy + 3}" text-anchor="end" fill="#64748b" font-family="ui-monospace, monospace" font-size="8">${(1 - index / 4) * 100}%</text>`);
+    parts.push(`<line x1="${left}" y1="${gy}" x2="${width - right}" y2="${gy}" stroke="rgba(35,29,21,.12)"/>`);
+    parts.push(`<text x="${left - 8}" y="${gy + 3}" text-anchor="end" fill="#756B5C" font-family="ui-monospace, monospace" font-size="8">${(1 - index / 4) * 100}%</text>`);
   }
   for (let index = 0; index <= 4; index += 1) {
     const gx = left + (plotW * index) / 4;
-    parts.push(`<text x="${gx}" y="${height - 10}" text-anchor="middle" fill="#64748b" font-family="ui-monospace, monospace" font-size="8">${(index / 4).toFixed(2)}</text>`);
+    parts.push(`<text x="${gx}" y="${height - 10}" text-anchor="middle" fill="#756B5C" font-family="ui-monospace, monospace" font-size="8">${(index / 4).toFixed(2)}</text>`);
   }
   series.forEach((item) => {
     if (!item.points.length) return;
@@ -1112,9 +1112,9 @@ function renderSweepChart(sweep) {
   parts.push("</svg>");
   $("#sweepChart").innerHTML = `
     <div class="chart-legend">
-      <span><i style="background:#fbbf24"></i>B1 prompt filter</span>
-      <span><i style="background:#fb7185"></i>B3 risk only</span>
-      <span><i style="background:#34d399"></i>B5 full</span>
+      <span><i style="background:#8A5A00"></i>B1 prompt filter</span>
+      <span><i style="background:#A32A2A"></i>B3 risk only</span>
+      <span><i style="background:#2E6B40"></i>B5 full</span>
     </div>
     ${parts.join("")}
     <div class="axis-label">detector recall →</div>`;
@@ -1123,8 +1123,8 @@ function renderSweepChart(sweep) {
 function heatColor(value) {
   const v = Math.max(0, Math.min(1, Number(value) || 0));
   const hue = 145 - 145 * v;
-  const light = 24 + 16 * v;
-  return `background:hsl(${hue} 52% ${light}% / ${0.4 + 0.42 * v});`;
+  const light = 93 - 30 * v;
+  return `background:hsl(${hue} 58% ${light}%);`;
 }
 
 function renderFamilyHeatmap(main) {
