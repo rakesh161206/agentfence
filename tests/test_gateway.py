@@ -144,3 +144,27 @@ async def test_demo_run_and_seed_endpoints(sandbox) -> None:
         assert stats.status_code == 200
         assert stats.json()["approvals_pending"] == seed_body["pending_approvals"]
         assert stats.json()["audit"]["ok"] is True
+
+
+@pytest.mark.asyncio
+async def test_dashboard_assets_are_served(sandbox) -> None:
+    config = GatewayConfig(mode=get_mode("B5"), root=sandbox)
+    app = create_app(config, root=sandbox, build_fixtures=False)
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        index = await client.get("/")
+        assert index.status_code == 200
+        assert 'src="./app.js' in index.text
+        assert 'href="./style.css' in index.text
+
+        app_js = await client.get("/app.js")
+        assert app_js.status_code == 200
+        assert "DOMContentLoaded" in app_js.text
+
+        style = await client.get("/style.css")
+        assert style.status_code == 200
+        assert "--bg" in style.text or "body" in style.text
+
+        legacy = await client.get("/static/app.js")
+        assert legacy.status_code == 200
+        assert legacy.text == app_js.text

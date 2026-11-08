@@ -219,16 +219,27 @@ def create_app(
         return load_results()
 
     # ---------------------------------------------------------------- dashboard
-    @app.get("/", include_in_schema=False)
-    def dashboard() -> FileResponse:
-        return FileResponse(STATIC_DIR / "index.html")
-
-    @app.get("/static/{filename}", include_in_schema=False)
-    def static_file(filename: str) -> FileResponse:
+    def _frontend_file(filename: str) -> FileResponse:
         candidate = (STATIC_DIR / filename).resolve()
         if not candidate.is_relative_to(STATIC_DIR.resolve()) or not candidate.is_file():
             raise HTTPException(status_code=404, detail="not found")
         return FileResponse(candidate)
+
+    @app.get("/", include_in_schema=False)
+    def dashboard() -> FileResponse:
+        return FileResponse(STATIC_DIR / "index.html")
+
+    @app.get("/app.js", include_in_schema=False)
+    def dashboard_app() -> FileResponse:
+        return _frontend_file("app.js")
+
+    @app.get("/style.css", include_in_schema=False)
+    def dashboard_style() -> FileResponse:
+        return _frontend_file("style.css")
+
+    @app.get("/static/{filename}", include_in_schema=False)
+    def static_file(filename: str) -> FileResponse:
+        return _frontend_file(filename)
 
     return app
 

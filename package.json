@@ -1,0 +1,22 @@
+{
+  "name": "agentfence-console",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Development server for the AgentFence console",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c blue,magenta \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "uv run agentfence serve --port 8080 --seed-demo",
+    "dev:web": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.7",
+    "vite": "^8.3.6"
+  }
+}

@@ -44,7 +44,8 @@ OWASP ASI01–ASI10 coverage matrix, and the non-goals.
 
 ## Quick start
 
-Requirements: Python 3.11 or 3.12 and [uv](https://docs.astral.sh/uv/).
+Requirements: Python 3.11 or 3.12, [uv](https://docs.astral.sh/uv/), and
+Node.js 20.19+ for the npm workflow.
 
 ```bash
 uv sync --extra dev
@@ -71,10 +72,37 @@ uv run agentfence serve \
 The server uses only simulated tools and canary credentials. No real email,
 HTTP, database, or filesystem egress occurs outside the runtime sandbox.
 
+## npm development
+
+To run the console through Vite instead of the Python static server:
+
+```bash
+npm install
+npm run dev
+```
+
+This starts FastAPI on <http://127.0.0.1:8080> and Vite on
+<http://127.0.0.1:5173>. Vite proxies `/v1`, `/healthz`, `/docs`, and
+`/openapi.json` to the API. Open the Vite URL for hot reload.
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Start the API and Vite together |
+| `npm run dev:api` | Start only the FastAPI gateway on :8080 |
+| `npm run dev:web` | Start only Vite on :5173 |
+| `npm run build` | Bundle the console into `frontend/dist` |
+| `npm run preview` | Preview the bundle on :4173 with the API proxy |
+
+The Python server remains the default deployment path: `uv run agentfence
+serve` serves `frontend/index.html` directly. No Node build is required for
+that mode. Set `AGENTFENCE_API_URL` to point the Vite proxy at a different API
+origin, or use `npm run dev:web` when the gateway is already running.
+
 ## Console
 
-The console is plain HTML, CSS, and JavaScript served by the gateway. There is
-no frontend build step and no separate Node process.
+The console is plain HTML, CSS, and JavaScript. FastAPI serves it directly from
+`frontend/`; the npm workflow adds a Vite dev server for frontend work and a
+bundling step. Neither mode needs a separate API process beyond the gateway.
 
 | View | What it shows |
 |---|---|
@@ -194,6 +222,8 @@ frontend/                  console HTML, CSS, JS, and result snapshots
 experiments/               scenarios, runner, statistics, sweep, tables, figures
 tests/                     grouped behavior tests plus detailed security tests
 docs/positioning.md        four-plane model, OWASP coverage, non-goals
+package.json               npm scripts and frontend dev dependencies
+vite.config.js             Vite root, API proxy, and bundle output
 requirements.txt           pip-installable dependency list
 ```
 
