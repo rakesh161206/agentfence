@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>AgentFence Console</title>
-  <link rel="stylesheet" href="./style.css?v=20261110d">
+  <link rel="stylesheet" href="./style.css?v=20261110e">
 </head>
 <body>
   <div class="app">
@@ -19,7 +19,6 @@
       </a>
 
       <nav class="nav" id="nav" aria-label="Main navigation">
-        <span class="nav-group">Start here</span>
         <button data-route="overview" class="active">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
           <span>Home</span>
@@ -28,7 +27,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.8l5.2 3.2L10 15.2z"/></svg>
           <span>Try a scenario</span>
         </button>
-        <span class="nav-group">Live activity</span>
         <button data-route="approvals">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-5"/><circle cx="12" cy="12" r="9"/></svg>
           <span>Approvals</span>
@@ -42,7 +40,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
           <span>Actions taken</span>
         </button>
-        <span class="nav-group">Evidence</span>
         <button data-route="experiments">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
           <span>Test results</span>
@@ -148,7 +145,7 @@
           <div class="result-cards" id="overviewKpis"></div>
 
           <div class="grid two">
-            <article class="card">
+            <article class="card compare-card">
               <div class="card-head">
                 <div>
                   <h2>Before and after</h2>
@@ -601,7 +598,7 @@
             </div>
           </div>
 
-          <div class="grid two">
+          <div class="grid two align-start">
             <article class="card prose">
               <h2>Two layers of checking</h2>
               <p><strong>Hard rules.</strong> Permissions, allowed files and destinations, sensitive-data rules, and rate limits. If a hard rule fails, the action is blocked.</p>
@@ -653,6 +650,6 @@
     <pre id="auditDialogBody"></pre>
   </dialog>
 
-  <script type="module" src="./app.js?v=20261110d"></script>
+  <script type="module" src="./app.js?v=20261110e"></script>
 </body>
 </html>

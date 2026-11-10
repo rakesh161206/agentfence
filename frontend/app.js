@@ -176,7 +176,7 @@ function clock(value) {
   if (!value) return "";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "";
-  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
 }
 
 function shortHash(value, length = 12) {
@@ -569,7 +569,11 @@ function renderScenarioIntro(scenario) {
       </div>
       <div class="intro-actions">
         <span class="muted small">${scenario.actions} steps · ${state.demo.mode} · if a person is asked: ${esc(POLICY_LABELS[state.demo.policy] || state.demo.policy)}</span>
-        <button class="btn primary" id="runDemoInline">Run this scenario</button>
+      </div>
+      <div class="intro-preview">
+        <div><span>1</span><strong>Every action</strong><p>The exact tool call, file, or destination.</p></div>
+        <div><span>2</span><strong>Each decision</strong><p>Allowed, blocked, or paused for a person.</p></div>
+        <div><span>3</span><strong>The outcome</strong><p>What ran, what stopped, and whether data left.</p></div>
       </div>
       ${scenario.finding ? `<div class="finding ${scenario.id === "a5-paraphrase" || scenario.id === "a5-split" ? "warn" : ""}"><strong>Note.</strong> ${esc(scenario.finding)}</div>` : ""}
     </div>`;
@@ -669,8 +673,6 @@ function setDemoButtonsDisabled(disabled) {
   const compare = $("#compareDemo");
   if (run) run.disabled = disabled;
   if (compare) compare.disabled = disabled;
-  const inline = $("#runDemoInline");
-  if (inline) inline.disabled = disabled;
 }
 
 function renderComparison(comparison) {
@@ -708,9 +710,9 @@ function renderComparison(comparison) {
 }
 
 function verdictColor(verdict) {
-  if (verdict === "blocked" || verdict === "completed") return "#157A4A";
+  if (verdict === "blocked" || verdict === "completed") return "#2E6B40";
   if (verdict === "pending" || verdict === "false_block") return "#8A5A00";
-  return "#B3261E";
+  return "#A32A2A";
 }
 
 function approvalChip(result) {
@@ -1115,8 +1117,8 @@ function renderModeTable(main) {
     return `
       <div class="mode-row ${best ? "best" : ""}">
         <div class="mode-name">${esc(mode)}<span class="tag">${esc(tag)}</span></div>
-        ${barCell(data.attack.asr, "#B3261E")}
-        ${barCell(data.benign.tcr, "#157A4A")}
+        ${barCell(data.attack.asr, "#A32A2A")}
+        ${barCell(data.benign.tcr, "#2E6B40")}
         <div class="num">${num(data.benign.false_block_tasks)}</div>
         <div class="num">${Number(data.latency.end_to_end.p95 || 0).toFixed(2)} ms</div>
       </div>`;
@@ -1147,18 +1149,18 @@ function renderSweepChart(sweep) {
   const bottom = 32;
   const plotW = width - left - right;
   const plotH = height - top - bottom;
-  const colors = { B1: "#8A5A00", B3: "#B3261E", B5: "#157A4A" };
+  const colors = { B1: "#8A5A00", B3: "#A32A2A", B5: "#2E6B40" };
   const x = (value) => left + plotW * value;
   const y = (value) => top + plotH * (1 - value);
   const parts = [`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Attack success as detector recall varies">`];
   for (let index = 0; index <= 4; index += 1) {
     const gy = top + (plotH * index) / 4;
-    parts.push(`<line x1="${left}" y1="${gy}" x2="${width - right}" y2="${gy}" stroke="rgba(0,71,171,.14)"/>`);
-    parts.push(`<text x="${left - 8}" y="${gy + 3}" text-anchor="end" fill="#6079A3" font-family="ui-monospace, monospace" font-size="8">${(1 - index / 4) * 100}%</text>`);
+    parts.push(`<line x1="${left}" y1="${gy}" x2="${width - right}" y2="${gy}" stroke="rgba(35,29,21,.14)"/>`);
+    parts.push(`<text x="${left - 8}" y="${gy + 3}" text-anchor="end" fill="#756B5C" font-family="ui-monospace, monospace" font-size="8">${(1 - index / 4) * 100}%</text>`);
   }
   for (let index = 0; index <= 4; index += 1) {
     const gx = left + (plotW * index) / 4;
-    parts.push(`<text x="${gx}" y="${height - 10}" text-anchor="middle" fill="#6079A3" font-family="ui-monospace, monospace" font-size="8">${(index / 4).toFixed(2)}</text>`);
+    parts.push(`<text x="${gx}" y="${height - 10}" text-anchor="middle" fill="#756B5C" font-family="ui-monospace, monospace" font-size="8">${(index / 4).toFixed(2)}</text>`);
   }
   series.forEach((item) => {
     if (!item.points.length) return;
@@ -1172,8 +1174,8 @@ function renderSweepChart(sweep) {
   $("#sweepChart").innerHTML = `
     <div class="chart-legend">
       <span><i style="background:#8A5A00"></i>Prompt filter</span>
-      <span><i style="background:#B3261E"></i>Risk score</span>
-      <span><i style="background:#157A4A"></i>Full protection</span>
+      <span><i style="background:#A32A2A"></i>Risk score</span>
+      <span><i style="background:#2E6B40"></i>Full protection</span>
     </div>
     ${parts.join("")}
     <div class="axis-label">detector recall (higher is better) →</div>`;
@@ -1333,9 +1335,6 @@ function bindEvents() {
         renderDemoPanel();
       }
       return;
-    }
-    if (event.target.closest("#runDemoInline")) {
-      runDemo();
     }
   });
 
