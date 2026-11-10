@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>AgentFence Console</title>
-  <link rel="stylesheet" href="./style.css?v=20261108c">
+  <link rel="stylesheet" href="./style.css?v=20261110d">
 </head>
 <body>
   <div class="app">
@@ -19,14 +19,16 @@
       </a>
 
       <nav class="nav" id="nav" aria-label="Main navigation">
+        <span class="nav-group">Start here</span>
         <button data-route="overview" class="active">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-          <span>Overview</span>
+          <span>Home</span>
         </button>
         <button data-route="demo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.8l5.2 3.2L10 15.2z"/></svg>
-          <span>Live demo</span>
+          <span>Try a scenario</span>
         </button>
+        <span class="nav-group">Live activity</span>
         <button data-route="approvals">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-5"/><circle cx="12" cy="12" r="9"/></svg>
           <span>Approvals</span>
@@ -34,19 +36,20 @@
         </button>
         <button data-route="audit">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg>
-          <span>Audit log</span>
+          <span>Decision log</span>
         </button>
         <button data-route="effects">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
-          <span>Effects</span>
+          <span>Actions taken</span>
         </button>
+        <span class="nav-group">Evidence</span>
         <button data-route="experiments">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
-          <span>Experiments</span>
+          <span>Test results</span>
         </button>
         <button data-route="coverage">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-5"/></svg>
-          <span>Coverage</span>
+          <span>What's covered</span>
         </button>
         <button data-route="about">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>
@@ -87,139 +90,180 @@
       <main class="content">
         <!-- ------------------------------------------------------------ overview -->
         <section class="page active" id="page-overview">
-          <div class="hero">
+          <div class="hero hero-simple">
             <div class="hero-copy">
-              <span class="eyebrow">Runtime policy enforcement</span>
-              <h1>Stop the action,<br><span>not the agent.</span></h1>
+              <span class="eyebrow">AI agent safety, in plain language</span>
+              <h1>A safety checkpoint<br><span>for AI agents.</span></h1>
               <p class="lede">
-                AgentFence sits between an autonomous agent and its tools. It checks
-                task-scoped capabilities, data provenance, destination trust, and risk
-                before anything executes — then records a tamper-evident receipt.
+                AI agents can read files, send email, and call APIs. AgentFence checks
+                each action before it happens — then allows it, blocks it, or asks a person.
               </p>
               <div class="hero-actions">
-                <a class="btn primary" href="#/demo">Run an attack demo</a>
-                <a class="btn ghost" href="#/experiments">Read the evaluation</a>
+                <a class="btn primary" href="#/demo">Watch it stop an attack</a>
+                <a class="btn ghost" href="#/experiments">See the test results</a>
               </div>
+              <p class="hero-note">Tested on 2,200 simulated actions. No real network access.</p>
             </div>
-            <div class="hero-panel">
+            <div class="hero-panel hero-flow">
               <div class="hero-panel-head">
                 <span class="status-led"></span>
-                <span>Measured on 2,200 episodes</span>
+                <span>One checkpoint, three answers</span>
               </div>
-              <div class="hero-metric">
-                <strong>3.2%</strong>
-                <span>attack success in B5<br><em>vs 100% undefended</em></span>
+              <div class="flow">
+                <div class="flow-node">
+                  <span class="flow-icon">AI</span>
+                  <strong>Agent</strong>
+                  <small>wants to act</small>
+                </div>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <div class="flow-node flow-core">
+                  <span class="flow-icon">AF</span>
+                  <strong>AgentFence</strong>
+                  <small>checks it</small>
+                </div>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <div class="flow-node">
+                  <span class="flow-icon">↗</span>
+                  <strong>Tools</strong>
+                  <small>file · email · API</small>
+                </div>
               </div>
-              <div class="hero-rule"></div>
-              <div class="hero-metric">
-                <strong>0</strong>
-                <span>false blocks on<br>24 benign tasks</span>
+              <div class="flow-outcomes">
+                <span class="outcome ok">✓ Allow</span>
+                <span class="outcome bad">✕ Block</span>
+                <span class="outcome warn">? Ask a person</span>
               </div>
-              <div class="hero-foot">1.57 ms p95 end-to-end · hash-chained audit</div>
+              <div class="hero-foot">Every decision is written to a tamper-evident log.</div>
             </div>
           </div>
 
-          <div class="kpis" id="overviewKpis"></div>
-
-          <div class="grid two">
-            <article class="card">
-              <div class="card-head">
-                <div>
-                  <h2>Security vs utility</h2>
-                  <p class="card-sub">Attack success and task completion across B0–B5</p>
-                </div>
-                <span class="chip">31 attacks · 24 benign</span>
-              </div>
-              <div id="overviewChart" class="chart-wrap"></div>
-            </article>
-            <article class="card">
-              <div class="card-head">
-                <div>
-                  <h2>Live gateway</h2>
-                  <p class="card-sub">The running control plane, not the replay lab</p>
-                </div>
-                <span class="pill" id="liveMode">—</span>
-              </div>
-              <div id="liveSummary"></div>
-            </article>
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">The short version</span>
+              <h2>What the tests show</h2>
+              <p>31 scripted attacks and 24 normal tasks, run in a safe sandbox.</p>
+            </div>
+            <a class="link" href="#/experiments">See the full results →</a>
           </div>
+          <div class="result-cards" id="overviewKpis"></div>
 
           <div class="grid two">
             <article class="card">
               <div class="card-head">
                 <div>
-                  <h2>Recent decisions</h2>
-                  <p class="card-sub">Newest audit entries from this gateway</p>
+                  <h2>Before and after</h2>
+                  <p class="card-sub">How many attacks got through, with and without AgentFence.</p>
                 </div>
-                <a class="link" href="#/audit">Open audit log →</a>
+                <span class="chip">31 attacks</span>
               </div>
-              <div id="recentDecisions"></div>
+              <div id="overviewCompare"></div>
             </article>
             <article class="card">
               <div class="card-head">
                 <div>
-                  <h2>How a decision is made</h2>
-                  <p class="card-sub">Deterministic first, advisory second</p>
+                  <h2>Three possible outcomes</h2>
+                  <p class="card-sub">Every action gets a clear answer.</p>
                 </div>
               </div>
               <div class="how-grid">
                 <div class="how-step">
-                  <span class="how-num">01</span>
-                  <h3>Bind the task</h3>
-                  <p>A signed grant names the tools, paths, domains, recipients, and call budget. No ambient authority.</p>
+                  <span class="how-num ok">✓</span>
+                  <h3>Allowed</h3>
+                  <p>The action fits the agent's permissions and looks safe, so it runs.</p>
                 </div>
                 <div class="how-step">
-                  <span class="how-num">02</span>
-                  <h3>Inspect the action</h3>
-                  <p>Canonicalise paths, decode payloads, propagate provenance labels, and score destination trust.</p>
+                  <span class="how-num bad">✕</span>
+                  <h3>Blocked</h3>
+                  <p>The action breaks a rule — wrong file, wrong destination, or sensitive data leaving.</p>
                 </div>
                 <div class="how-step">
-                  <span class="how-num">03</span>
-                  <h3>Enforce and record</h3>
-                  <p>Allow, block, or ask a human. Every outcome lands in an HMAC-linked audit chain.</p>
+                  <span class="how-num warn">?</span>
+                  <h3>Sent to a person</h3>
+                  <p>Risky but possibly legitimate. A human sees exactly what will happen and decides.</p>
                 </div>
               </div>
             </article>
           </div>
+
+          <article class="card">
+            <div class="card-head">
+              <div>
+                <h2>How it works</h2>
+                <p class="card-sub">The short version, in three steps.</p>
+              </div>
+            </div>
+            <div class="how-grid how-cols">
+              <div class="how-step">
+                <span class="how-num">1</span>
+                <h3>Give a limited pass</h3>
+                <p>The agent gets permission for specific tools, files, and destinations — nothing else.</p>
+              </div>
+              <div class="how-step">
+                <span class="how-num">2</span>
+                <h3>Check the action</h3>
+                <p>AgentFence looks at the exact action, where the data came from, and where it is going.</p>
+              </div>
+              <div class="how-step">
+                <span class="how-num">3</span>
+                <h3>Decide and record</h3>
+                <p>The action is allowed, blocked, or paused for a person. The decision goes into the log.</p>
+              </div>
+            </div>
+            <div class="card-actions">
+              <a class="btn ghost" href="#/demo">See a real decision →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-head">
+              <div>
+                <h2>Happening now</h2>
+                <p class="card-sub">Live activity from this gateway, not the test replay.</p>
+              </div>
+              <a class="link" href="#/audit">Open the decision log →</a>
+            </div>
+            <div id="overviewLive"></div>
+          </article>
         </section>
 
         <!-- ---------------------------------------------------------------- demo -->
         <section class="page" id="page-demo">
           <div class="page-head">
             <div>
-              <span class="eyebrow">Isolated replay lab</span>
-              <h1>Run the attack. Watch the decision.</h1>
-              <p>Pick a scenario and a configuration. Each run builds a fresh sandbox, executes the real gateway, and returns the trace, effects, and audit receipt.</p>
+              <span class="eyebrow">Try it yourself</span>
+              <h1>See a decision happen.</h1>
+              <p>Pick a scenario and a protection level. AgentFence will check every action and show you, step by step, why it allowed or blocked it.</p>
             </div>
-            <span class="chip accent">no network egress</span>
+            <span class="chip accent">safe sandbox</span>
           </div>
 
           <div class="demo-layout">
             <aside class="card scenario-panel">
               <div class="card-head tight">
-                <h2>Scenario</h2>
+                <h2>1. Choose a scenario</h2>
                 <span class="muted tiny" id="scenarioCount"></span>
               </div>
               <div id="scenarioList" class="scenario-list"></div>
 
               <div class="control-block">
-                <label class="control-label">Configuration</label>
-                <div id="modePicker" class="segmented" role="group" aria-label="Configuration"></div>
+                <label class="control-label">2. Choose protection</label>
+                <div id="modePicker" class="segmented" role="group" aria-label="Protection level"></div>
+                <p class="mode-description" id="modeDescription"></p>
               </div>
 
               <div class="control-block">
-                <label class="control-label" for="policySelect">Approval policy</label>
+                <label class="control-label" for="policySelect">3. If a person is asked</label>
                 <select id="policySelect">
                   <option value="approve">Approve the preview</option>
                   <option value="deny">Deny the request</option>
                   <option value="leave">Leave it pending</option>
                 </select>
-                <p class="hint">A7 reuses the approval token on a mutated action.</p>
+                <p class="hint">The approval is tied to the exact action. If the action changes, the approval stops working.</p>
               </div>
 
-              <button id="runDemo" class="btn primary wide">Run scenario</button>
-              <button id="compareDemo" class="btn ghost wide">Compare B0–B5</button>
-              <p class="hint center">Sandbox resets after every run. The live console is untouched.</p>
+              <button id="runDemo" class="btn primary wide">Run this scenario</button>
+              <button id="compareDemo" class="btn ghost wide">Compare all levels</button>
+              <p class="hint center">Each run starts fresh. Nothing is sent to real services.</p>
             </aside>
 
             <div class="demo-main">
@@ -232,8 +276,8 @@
                     <path d="M87 40l4 4 7-8"/>
                   </svg>
                 </div>
-                <h2>Select a scenario and run it</h2>
-                <p>The result panel will show every action, the rule that fired, the risk score, any approval, and the bytes that escaped.</p>
+                <h2>Pick a scenario, then press run</h2>
+                <p>You will see every action the agent tried, the reason for each decision, and whether any data escaped.</p>
               </div>
             </div>
           </div>
@@ -243,24 +287,24 @@
         <section class="page" id="page-approvals">
           <div class="page-head">
             <div>
-              <span class="eyebrow">Human in the loop</span>
-              <h1>Approvals</h1>
-              <p>Risk escalation can pause an action. The preview is exact, and the token is bound to the action hash — mutate it and the token dies.</p>
+              <span class="eyebrow">A person makes the call</span>
+              <h1>Actions waiting for approval</h1>
+              <p>When an action is risky, AgentFence pauses it and asks a human. You see exactly what the agent wants to do before you decide.</p>
             </div>
             <button class="btn ghost" data-seed>Load sample activity</button>
           </div>
           <div class="split">
             <div class="card list-panel">
               <div class="card-head tight">
-                <h2>Pending</h2>
+                <h2>Waiting for you</h2>
                 <span id="approvalCount" class="count">0</span>
               </div>
               <div id="approvalList" class="list"></div>
             </div>
             <article class="card detail-panel" id="approvalDetail">
               <div class="empty-state">
-                <h2>No pending approval selected</h2>
-                <p>When an action needs a human, its exact destination, payload, labels, and risk breakdown appear here.</p>
+                <h2>Nothing selected</h2>
+                <p>Choose an action on the left to see exactly what will happen if you approve it.</p>
               </div>
             </article>
           </div>
@@ -270,22 +314,22 @@
         <section class="page" id="page-audit">
           <div class="page-head">
             <div>
-              <span class="eyebrow">Tamper-evident record</span>
-              <h1>Audit log</h1>
-              <p>Every decision is appended to an HMAC-SHA256 hash chain. Verify the chain, filter it, or inspect a single entry.</p>
+              <span class="eyebrow">Nothing happens off the record</span>
+              <h1>Decision log</h1>
+              <p>Every action and every decision is recorded in order. If anyone changes an entry, the check fails — that is what makes the log tamper-evident.</p>
             </div>
-            <button id="verifyAudit" class="btn primary">Verify chain</button>
+            <button id="verifyAudit" class="btn primary">Check the log</button>
           </div>
           <div class="toolbar card">
-            <span id="verifyResult" class="muted small">Chain not verified yet.</span>
+            <span id="verifyResult" class="muted small">The log has not been checked yet.</span>
             <div class="spacer"></div>
             <select id="auditDecision" aria-label="Filter by decision">
-              <option value="">All decisions</option>
-              <option value="ALLOW">Allow</option>
-              <option value="BLOCK">Block</option>
-              <option value="REQUIRE_APPROVAL">Approval</option>
+              <option value="">All outcomes</option>
+              <option value="ALLOW">Allowed</option>
+              <option value="BLOCK">Blocked</option>
+              <option value="REQUIRE_APPROVAL">Needs approval</option>
             </select>
-            <input id="auditSearch" type="search" placeholder="Filter tool, rule, reason…" aria-label="Search audit log">
+            <input id="auditSearch" type="search" placeholder="Search action, rule, reason…" aria-label="Search decision log">
           </div>
           <div class="table-wrap card">
             <table id="auditTable"></table>
@@ -297,8 +341,8 @@
           <div class="page-head">
             <div>
               <span class="eyebrow">What actually happened</span>
-              <h1>Effects</h1>
-              <p>An effect is recorded only after the gateway executes a tool. Reads, writes, emails, and POSTs all leave a receipt.</p>
+              <h1>Actions taken</h1>
+              <p>This page lists only the actions that actually ran. Each one has a receipt showing what was sent and where it went. Blocked actions appear in the decision log instead.</p>
             </div>
           </div>
           <div class="kpis small" id="effectKpis"></div>
@@ -311,45 +355,68 @@
         <section class="page" id="page-experiments">
           <div class="page-head">
             <div>
-              <span class="eyebrow">Reproducible evaluation</span>
-              <h1>Experiments</h1>
-              <p>31 scripted attacks, 24 benign tasks, eight configurations, and a detector sweep. The full matrix is in <span class="mono">results/main</span>.</p>
+              <span class="eyebrow">The evidence</span>
+              <h1>What we tested and what we found</h1>
+              <p>31 scripted attacks and 24 normal tasks, run against six protection levels. The short version is below; the full detail follows.</p>
             </div>
-            <a class="btn ghost" href="#/demo">Replay a scenario →</a>
+            <a class="btn ghost" href="#/demo">Try a scenario →</a>
           </div>
           <div class="kpis" id="experimentKpis"></div>
+
+          <article class="card findings">
+            <div class="card-head">
+              <div>
+                <h2>The headline</h2>
+                <p class="card-sub">What the numbers mean in plain language.</p>
+              </div>
+            </div>
+            <div class="finding-grid">
+              <div class="finding-item ok">
+                <strong>30 of 31 attacks stopped</strong>
+                <p>Full protection let only one carefully reworded attack through.</p>
+              </div>
+              <div class="finding-item ok">
+                <strong>24 of 24 normal tasks completed</strong>
+                <p>No legitimate work was blocked.</p>
+              </div>
+              <div class="finding-item">
+                <strong>1.6 ms per decision</strong>
+                <p>Fast enough to check every action without slowing the agent down.</p>
+              </div>
+            </div>
+          </article>
 
           <div class="grid two">
             <article class="card">
               <div class="card-head">
                 <div>
-                  <h2>Security vs utility by configuration</h2>
-                  <p class="card-sub">ASR lower is better · TCR higher is better</p>
+                  <h2>Protection levels, compared</h2>
+                  <p class="card-sub">Fewer attacks is better. More completed tasks is better.</p>
                 </div>
-                <span class="chip">main matrix</span>
+                <span class="chip">main test</span>
               </div>
               <div id="modeTable" class="mode-table"></div>
             </article>
             <article class="card">
               <div class="card-head">
                 <div>
-                  <h2>Detector sweep</h2>
-                  <p class="card-sub">ASR as the prompt-injection detector varies</p>
+                  <h2>Does a better detector help?</h2>
+                  <p class="card-sub">Attack success as the prompt-injection detector improves.</p>
                 </div>
                 <span class="chip">6,750 episodes</span>
               </div>
               <div id="sweepChart" class="chart-wrap"></div>
-              <p class="hint">B5 stays flat because deterministic controls, not the detector, carry the load.</p>
+              <p class="hint">Full protection stays flat: the hard rules, not the detector, do the work.</p>
             </article>
           </div>
 
           <article class="card">
             <div class="card-head">
               <div>
-                <h2>Attack success by family</h2>
-                <p class="card-sub">Each cell is successful scenarios / scenarios attempted</p>
+                <h2>Attacks by type</h2>
+                <p class="card-sub">How many attacks got through in each category. 0/6 means every one was stopped.</p>
               </div>
-              <span class="chip">B0–B4TR</span>
+              <span class="chip">7 attack types</span>
             </div>
             <div id="familyHeatmap" class="heatmap-wrap"></div>
           </article>
@@ -358,8 +425,8 @@
             <article class="card">
               <div class="card-head">
                 <div>
-                  <h2>Latency</h2>
-                  <p class="card-sub">Milliseconds per submitted action</p>
+                  <h2>How fast is a decision?</h2>
+                  <p class="card-sub">Milliseconds per action. Lower is better.</p>
                 </div>
               </div>
               <div id="latencyTable" class="mode-table"></div>
@@ -367,8 +434,8 @@
             <article class="card">
               <div class="card-head">
                 <div>
-                  <h2>Rule coverage in B5</h2>
-                  <p class="card-sub">Decisions attributed to each rule</p>
+                  <h2>Which checks do the work?</h2>
+                  <p class="card-sub">How often each check made the decision under full protection.</p>
                 </div>
               </div>
               <div id="ruleCoverage" class="rule-bars"></div>
@@ -382,41 +449,52 @@
         <section class="page" id="page-coverage">
           <div class="page-head">
             <div>
-              <span class="eyebrow">Agentic firewall map</span>
-              <h1>One plane of a larger firewall</h1>
-              <p>AgentFence enforces the action plane: the point where an agent's intent becomes a tool call. Prompt, retrieval, and response filters reduce what reaches the model; AgentFence decides what the model may do.</p>
+              <span class="eyebrow">The bigger picture</span>
+              <h1>What AgentFence covers — and what it doesn't</h1>
+              <p>AgentFence guards one moment: when an AI agent tries to use a tool. It is one layer of a complete AI security system, not the whole thing.</p>
             </div>
-            <span class="chip accent">OWASP ASI01–ASI10</span>
+            <span class="chip accent">one layer</span>
           </div>
 
           <div class="coverage-planes">
             <article class="plane-card partial">
-              <span class="plane-k">Plane 01</span>
-              <h3>Input / prompt</h3>
-              <p>Screens user and retrieved text before it reaches the model.</p>
-              <span class="status partial">partial</span>
+              <span class="plane-k">Other layers</span>
+              <h3>Text coming in</h3>
+              <p>Screens what a user or a document says before the AI reads it.</p>
+              <span class="status partial">other layers</span>
             </article>
             <article class="plane-card partial">
-              <span class="plane-k">Plane 02</span>
-              <h3>Retrieval / context</h3>
-              <p>Labels documents, web pages, and tool output that enter the context.</p>
-              <span class="status partial">partial</span>
+              <span class="plane-k">Other layers</span>
+              <h3>Documents the AI reads</h3>
+              <p>Labels where information came from and whether it can be trusted.</p>
+              <span class="status partial">other layers</span>
             </article>
             <article class="plane-card partial">
-              <span class="plane-k">Plane 03</span>
-              <h3>Output / response</h3>
-              <p>Filters what the model sends back to users or downstream systems.</p>
-              <span class="status partial">partial</span>
+              <span class="plane-k">Other layers</span>
+              <h3>Answers going out</h3>
+              <p>Filters what the AI sends back to users or downstream systems.</p>
+              <span class="status partial">other layers</span>
             </article>
             <article class="plane-card core">
-              <span class="plane-k">Plane 04</span>
-              <h3>Action / tool</h3>
-              <p>Authorizes side-effecting calls with capabilities, policy, approvals, and audit.</p>
-              <span class="status covered">core</span>
+              <span class="plane-k">AgentFence lives here</span>
+              <h3>Actions the AI takes</h3>
+              <p>Decides which tool calls are allowed, blocked, or sent to a person.</p>
+              <span class="status covered">AgentFence</span>
             </article>
           </div>
 
-          <div class="grid two coverage-split">
+          <article class="card coverage-summary">
+            <div>
+              <span class="eyebrow">OWASP agentic risks</span>
+              <h2>3 covered fully · 3 partly · 4 out of scope</h2>
+              <p>AgentFence directly addresses the risks that show up when an agent uses a tool. Model safety, supply-chain trust, and multi-agent security are left to other layers — and we say so plainly.</p>
+            </div>
+            <a class="link" href="#/experiments">See the evidence →</a>
+          </article>
+
+          <details class="more">
+            <summary>See the full OWASP mapping and best-practice alignment</summary>
+            <div class="grid two coverage-split">
             <article class="card">
               <div class="card-head">
                 <div>
@@ -494,7 +572,8 @@
               <p>AgentFence is not a complete AI firewall. It is the enforcement plane that makes the other planes matter: a prompt filter can reduce the chance that a model is fooled, but only the action plane can refuse the resulting tool call.</p>
               <p>The evaluation is deliberately scoped to that plane. The next layer of work is to connect input and output inspection to the same decision context, add task revocation and rollback, and attach an AIBOM so the gateway can verify what it is authorizing.</p>
             </article>
-          </div>
+            </div>
+          </details>
 
           <article class="card">
             <div class="card-head">
@@ -516,42 +595,44 @@
         <section class="page" id="page-about">
           <div class="page-head">
             <div>
-              <span class="eyebrow">Design notes</span>
-              <h1>About AgentFence</h1>
-              <p>A research prototype for runtime policy enforcement in tool-using agents. The evaluation is scripted and simulated; it measures enforcement, not LLM susceptibility.</p>
+              <span class="eyebrow">About the project</span>
+              <h1>What AgentFence is</h1>
+              <p>A research prototype that checks what an AI agent is about to do, before it does it. The tests are scripted and simulated — they measure the enforcement layer, not how easily a particular model can be fooled.</p>
             </div>
           </div>
 
           <div class="grid two">
             <article class="card prose">
-              <h2>Two layers, one decision</h2>
-              <p><strong>Layer 1 — deterministic.</strong> Signed task-scoped capabilities, expiry, canonical path scope, destination allow-lists, a confidential-egress ban, provenance taint, DLP, and rate limits. A failure here is final.</p>
-              <p><strong>Layer 2 — advisory.</strong> Prompt-injection score, data sensitivity, anomaly score, and destination reputation. It can escalate an allow to human approval; it can never loosen a deterministic block.</p>
-              <p>The approval token is bound to a SHA-256 hash of the tool, arguments, destination, content hashes, and preview. The audit log is an HMAC-SHA256 hash chain.</p>
-              <h2>What the prototype is not</h2>
-              <p>Tools are simulated. There is no real email, HTTP, or database egress. The scenario traces are deterministic, so the numbers measure the policy engine rather than a particular model’s willingness to follow an injection.</p>
-              <p>The residual B5 leak is real: a hand-written semantic paraphrase evades value matching. That limitation is reported in the paper and reproduced in the <a href="#/demo">demo lab</a>.</p>
+              <h2>Two layers of checking</h2>
+              <p><strong>Hard rules.</strong> Permissions, allowed files and destinations, sensitive-data rules, and rate limits. If a hard rule fails, the action is blocked.</p>
+              <p><strong>Risk signals.</strong> Prompt-injection score, data sensitivity, unusual behavior, and destination reputation. These can ask a person to look, but they can never override a block.</p>
+              <p><strong>The receipt.</strong> An approval is tied to the exact action. The decision log is a hash chain, so any change is detectable.</p>
+              <h2>What this prototype is not</h2>
+              <p>The tools are simulated. There is no real email, HTTP, or database access. The scenario traces are deterministic, so the numbers measure the policy engine rather than a particular model's willingness to follow an injection.</p>
+              <p>One attack still gets through: a hand-written paraphrase that hides the secret in ordinary prose. That limitation is reported in the paper and reproduced in the <a href="#/demo">scenario lab</a>.</p>
             </article>
 
             <article class="card prose">
-              <h2>Rule reference</h2>
-              <div class="rule-reference">
-                <div><span class="rule">R1</span><p>Authentication, task validity, or malformed action.</p></div>
-                <div><span class="rule">R2</span><p>Canonical path outside the task’s path scope.</p></div>
-                <div><span class="rule">R3</span><p>Destination or recipient outside the allow-list.</p></div>
-                <div><span class="rule">R4</span><p>Confidential data leaving without an explicit grant.</p></div>
-                <div><span class="rule">R4b</span><p>Cross-call reassembly exposes a secret split across requests.</p></div>
-                <div><span class="rule">R6</span><p>Untrusted provenance reaches a high-risk tool.</p></div>
-                <div><span class="rule">R7</span><p>Composite risk score exceeds the escalation threshold.</p></div>
-                <div><span class="rule">R8</span><p>The capability requires human approval.</p></div>
-                <div><span class="rule">R9</span><p>The approval token does not match the exact action.</p></div>
-                <div><span class="rule">PF1</span><p>Prompt-injection filter flagged the content.</p></div>
-              </div>
-              <h2>Running it</h2>
+              <h2>How to run it</h2>
               <pre><code>uv run agentfence serve --seed-demo
 # http://127.0.0.1:8080
 # admin key: agentfence-admin-key</code></pre>
               <p class="muted small">The default key is for local demos only. Change it before exposing the service.</p>
+              <details class="more">
+                <summary>See the rule reference</summary>
+                <div class="rule-reference">
+                  <div><span class="rule">R1</span><p>Authentication, task validity, or malformed action.</p></div>
+                  <div><span class="rule">R2</span><p>Canonical path outside the task’s path scope.</p></div>
+                  <div><span class="rule">R3</span><p>Destination or recipient outside the allow-list.</p></div>
+                  <div><span class="rule">R4</span><p>Confidential data leaving without an explicit grant.</p></div>
+                  <div><span class="rule">R4b</span><p>Cross-call reassembly exposes a secret split across requests.</p></div>
+                  <div><span class="rule">R6</span><p>Untrusted provenance reaches a high-risk tool.</p></div>
+                  <div><span class="rule">R7</span><p>Composite risk score exceeds the escalation threshold.</p></div>
+                  <div><span class="rule">R8</span><p>The capability requires human approval.</p></div>
+                  <div><span class="rule">R9</span><p>The approval token does not match the exact action.</p></div>
+                  <div><span class="rule">PF1</span><p>Prompt-injection filter flagged the content.</p></div>
+                </div>
+              </details>
             </article>
           </div>
         </section>
@@ -572,6 +653,6 @@
     <pre id="auditDialogBody"></pre>
   </dialog>
 
-  <script type="module" src="./app.js?v=20261108c"></script>
+  <script type="module" src="./app.js?v=20261110d"></script>
 </body>
 </html>
